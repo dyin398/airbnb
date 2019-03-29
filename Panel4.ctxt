@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Panel4
+comment0.text=\n\ Write\ a\ description\ of\ class\ Panel4\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=Panel4()
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Panel4\n
+comment2.params=
+comment2.target=javafx.scene.Scene\ getScene()
+comment2.text=\n\ \ \ \ private\ void\ fillGrid()\n\ \ \ \ {\n\ \ \ \ \ \ \ \ for\ (int\ i\ \=\ 0\ ;\ i\ <\ propertyIDs.size()\ ;\ i++)\ {\n\ \ \ \ \ \ \ \ \ \ \ \ Panel4Data\ data\ \=\ new\ Panel4Data(propertyIDs.get(i));\n\ \ \ \ \ \ \ \ \ \ \ \ assignParameters(data);\n\ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ }\n\ \ \ \ }\n\ \ \ \ \n\ \ \ \ private\ void\ assignParameters(Panel4Data\ data)\n\ \ \ \ {\n\ \ \ \ \ \ \ \ propertyName\ \=\ new\ Label(data.getPropertyName();\n\ \ \ \ \ \ \ \ roomType\ \=\ data.getRoomType();\n\ \ \ \ \ \ \ \ price\ \=\ data.getPrice();\n\ \ \ \ \ \ \ \ minNights\ \=\ data.getMinNights();\n\ \ \ \ \ \ \ \ numberOfReviews\ \=\ data.getNumberOfReviews();\n\ \ \ \ \ \ \ \ lastReview\ \=\ data.getLatReview();\n\ \ \ \ \ \ \ \ reviewsPerMonth\ \=\ data.getReviewsPerMonth();\n\ \ \ \ \ \ \ \ hostListingCount\ \=\ data.getHostListingCount();\n\ \ \ \ \ \ \ \ annualAvailability\ \=\ data.getAnnualAvailability();\n\ \ \ \ }\n
+numComments=3

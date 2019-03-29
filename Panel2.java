@@ -56,6 +56,7 @@ public class Panel2
     private Scene panel2;
     private AnchorPane root = new AnchorPane();
     private Stage stage;
+    private PanelControl panelControl;
 
     // List of borough abbreviations (used as keys for hashmap)
     private List<String> boroughList = Arrays.asList("WSTM", "TOWH", "KENS", "CAMD", "ISLI", "WAND", "CITY",
@@ -120,7 +121,9 @@ public class Panel2
     // array list of boroughs belonging to each tier. the higher the tier the more listings that borough has
     private ArrayList<String> tier1Boroughs, tier2Boroughs, tier3Boroughs, tier4Boroughs;
 
-    public Panel2() {
+    public Panel2(PanelControl panelControl) {
+        this.panelControl = panelControl;
+        
         // choice boxes
         price_from.getItems().addAll("0", "25", "50", "75", "100", "125", "150", "175", "200", "225","250");
         // set a default value 
@@ -432,10 +435,22 @@ public class Panel2
     {
         // create a ListingBox for each listing in that borough and display vbox on tile pane
         for(AirbnbListing listing: bucket) {
-            ListingBox listingBox = new ListingBox(listing, stage);
+            ListingBox listingBox = new ListingBox(listing, stage, this);
             VBox vbox = listingBox.getVBox();
             pane.getChildren().add(vbox);
         }
+    }
+    
+    public boolean AddToCompare(AirbnbListing boxToCompare)
+    {
+        // Forwards boxToCompare to PanelControl
+        return panelControl.AddToCompare(boxToCompare);
+    }
+    
+    public boolean RemoveFromCompare(AirbnbListing boxToCompare)
+    {
+        // Forwards boxToCompare to PanelControl
+        return panelControl.RemoveFromCompare(boxToCompare);
     }
     
     /**

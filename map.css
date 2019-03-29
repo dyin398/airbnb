@@ -1,0 +1,22 @@
+.map-button {
+  -fx-shape: "M 100 150 L 300 50 L 500 150 L 500 400 L 300 500 L 100 400 Z";
+  /* -fx-background-color: #FF609A; */
+  -fx-border-color: black;
+  -fx-alignment: center;
+}
+
+.tier-1 {
+  -fx-background-color: #FFE6EF;
+}
+
+.tier-2 {
+  -fx-background-color: #FFC0D7;
+}
+
+.tier-3 {
+  -fx-background-color: #FF8EB7;
+}
+
+.tier-4 {
+  -fx-background-color: #FF609A;
+}

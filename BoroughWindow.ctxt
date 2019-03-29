@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=BoroughWindow
+comment0.text=\n\ \n
+comment1.params=
+comment1.target=BoroughWindow()
+comment2.params=
+comment2.target=javafx.scene.layout.BorderPane\ getBorderPane()
+comment2.text=\n\ \n
+comment3.params=
+comment3.target=javafx.scene.layout.TilePane\ getTilePane()
+comment3.text=\n\ \n
+comment4.params=
+comment4.target=javafx.scene.control.ChoiceBox\ getChoiceBox()
+comment4.text=\n\ \n
+numComments=5

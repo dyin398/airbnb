@@ -36,7 +36,7 @@ public class PanelControl extends Application
     public PanelControl()
     {
         panel1 = new Panel1();
-        panel2 = new Panel2();
+        panel2 = new Panel2(this);
         panel4 = new Panel4();
     }
     
@@ -210,5 +210,17 @@ public class PanelControl extends Application
                 panel1.setDateOut(newValue);
             }
             );
+    }
+    
+    public boolean AddToCompare(AirbnbListing boxToCompare)
+    {
+        // Forwards boxToCompare to panel4
+        return panel4.AddToCompare(boxToCompare);
+    }
+    
+    public boolean RemoveFromCompare(AirbnbListing boxToCompare)
+    {
+        // Forwards boxToCompare to panel4
+        return panel4.RemoveFromCompare(boxToCompare);
     }
 }

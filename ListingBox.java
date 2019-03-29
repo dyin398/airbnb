@@ -27,9 +27,10 @@ public class ListingBox
     private double reviewsPerMonth;
     private int hostListingsCount;
     private int availability365;
+    private Panel2 panel2;
 
     // upon construction, this class takes in an AirbnbListing
-    public ListingBox(AirbnbListing listing, Stage stage)
+    public ListingBox(AirbnbListing listing, Stage stage, Panel2 panel2)
     {
         this.stage = stage;
         this.listing = listing;
@@ -44,7 +45,9 @@ public class ListingBox
         this.reviewsPerMonth = listing.getReviewsPerMonth();
         this.hostListingsCount = listing.getCalculatedHostListingsCount();
         this.availability365 = listing.getAvailability365();
-        
+
+        this.panel2 = panel2;
+
         makeVBox();
     }
 
@@ -77,7 +80,7 @@ public class ListingBox
             {
                 openDescription();
             }
-            );
+        );
         // button that lets you add the listing to the comparator panel
         Button compareButton = new Button("Compare");
         Button removeButton = new Button("Remove");
@@ -86,13 +89,13 @@ public class ListingBox
             {
                 //sth
             }
-            );
+        );
         removeButton.setOnAction(value ->
             {
                 //sth
             }
-            );
-            
+        );
+
         HBox hbox = new HBox(viewButton, compareButton, removeButton);
 
         vbox.getChildren().addAll(roomTypeL, nameL, hostNameL, priceL, numOfReviewsL, hbox);
@@ -144,6 +147,38 @@ public class ListingBox
         // specify parent window
         newWindow.initOwner(stage);
         newWindow.show();
+    }
+
+    private boolean AddToCompare()
+    {
+        // This function adds this listing box to be compared in panel4
+        // Works by sending box through panel2, panelControl to panel4
+        panel2.AddToCompare(listing);
+        return panel2.AddToCompare(listing);
+    }
+
+    private boolean RemoveFromCompare()
+    {
+        // This function adds this listing box to be compared in panel4
+        // Works by sending box through panel2, panelControl to panel4
+        panel2.RemoveFromCompare(listing);
+        return panel2.RemoveFromCompare(listing);
+    }
+
+    private boolean ToggleCompare()
+    {
+        // Listener calls this function
+        if (RemoveFromCompare()) // If true then listing was being compared, and is now removed
+        {
+            // GUI changes
+            // Change button to say 'Compare'
+        }
+        else if (AddToCompare())// If false then listing wasn't being compared, so add listing to be compared
+        {
+            AddToCompare();
+            // GUI changes
+            // Change button to say 'Remove'
+        }
     }
 
     /**
