@@ -14,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
+import javafx.scene.text.Font;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -70,6 +71,15 @@ public class Panel1
         line3.setEditable(false);
         line3.setPrefWidth(598);
         
+        price_from_label.setFont(new Font("Helvetica", 14));
+        price_to_label.setFont(new Font("Helvetica", 14));
+        priceError.setFont(new Font("Helvetica", 14));
+        date_from_label.setFont(new Font("Helvetica", 14));
+        date_to_label.setFont(new Font("Helvetica", 14));
+        line1.setFont(new Font("Helvetica", 13));
+        line2.setFont(new Font("Helvetica", 13));
+        line3.setFont(new Font("Helvetica", 13));
+        
         root.getChildren().addAll(price_from, price_to, price_from_label, 
                                     price_to_label, backButton, forwardButton, 
                                     priceError, line1, line2, line3, datePickerin,
@@ -103,6 +113,18 @@ public class Panel1
         root.setTopAnchor(date_to_label, 2.0);
         root.setLeftAnchor(date_to_label, 220.0);
         
+        URL url = this.getClass().getResource("birds.css");
+        if (url == null) {
+            System.out.println("Resource not found. Aborting.");
+            System.exit(-1);
+        }
+        String css = url.toExternalForm(); 
+        panel1.getStylesheets().add(css);
+        /*
+        try {
+            root = FXMLLoader.load(getClass().getResource("birds.css"));
+        }
+        catch (Exception e) {System.out.println("failed");}*/
         panel1 = new Scene(root, 800, 500);
     }
     

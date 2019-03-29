@@ -100,6 +100,9 @@ public class PanelControl extends Application
             currentScene = panel2.getScene();
         }
         else if (currentScene.equals(panel2.getScene())) {
+            currentScene = panel4.getScene();
+        }
+        else if (currentScene.equals(panel4.getScene())) {
             currentScene = panel1.getScene();
         }
         return currentScene;
@@ -108,10 +111,13 @@ public class PanelControl extends Application
     private Scene previousScene()
     {
         if (currentScene.equals(panel1.getScene())) {
-            currentScene = panel2.getScene();
+            currentScene = panel4.getScene();
         }
         else if (currentScene.equals(panel2.getScene())) {
             currentScene = panel1.getScene();
+        }
+        else if (currentScene.equals(panel4.getScene())) {
+            currentScene = panel2.getScene();
         }
         return currentScene;
     }
@@ -137,6 +143,18 @@ public class PanelControl extends Application
         );
         
         panel2.getForwardButton().setOnAction(value -> 
+        {
+           stage.setScene(nextScene());
+        }
+        );
+        
+        panel4.getBackButton().setOnAction(value -> 
+        {
+           stage.setScene(previousScene());
+        }
+        );
+        
+        panel4.getForwardButton().setOnAction(value -> 
         {
            stage.setScene(nextScene());
         }
@@ -212,15 +230,15 @@ public class PanelControl extends Application
             );
     }
     
-    public boolean AddToCompare(AirbnbListing boxToCompare)
+    public boolean addToCompare(AirbnbListing boxToCompare)
     {
         // Forwards boxToCompare to panel4
-        return panel4.AddToCompare(boxToCompare);
+        return panel4.addToCompare(boxToCompare);
     }
     
-    public boolean RemoveFromCompare(AirbnbListing boxToCompare)
+    public boolean removeFromCompare(AirbnbListing boxToCompare)
     {
         // Forwards boxToCompare to panel4
-        return panel4.RemoveFromCompare(boxToCompare);
+        return panel4.removeFromCompare(boxToCompare);
     }
 }

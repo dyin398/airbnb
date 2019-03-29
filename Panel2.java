@@ -15,6 +15,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
+import javafx.scene.text.Font;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -138,7 +139,19 @@ public class Panel2
         tier2 = new Button("    ");
         tier3 = new Button("    ");
         tier4 = new Button("    ");
-
+        
+        //set label fonts
+        price_from_label.setFont(new Font("Helvetica", 14));
+        price_to_label.setFont(new Font("Helvetica", 14));
+        priceError.setFont(new Font("Helvetica", 14));
+        date_from_label.setFont(new Font("Helvetica", 14));
+        date_to_label.setFont(new Font("Helvetica", 14));
+        tierLabel.setFont(new Font("Helvetica", 14));
+        tier1available.setFont(new Font("Helvetica", 14));
+        tier2available.setFont(new Font("Helvetica", 14));
+        tier3available.setFont(new Font("Helvetica", 14));
+        tier4available.setFont(new Font("Helvetica", 14));
+        
         // Format map key buttons
         tier1.getStyleClass().add("map-button");
         tier1.getStylesheets().add("map.css");
@@ -441,16 +454,16 @@ public class Panel2
         }
     }
     
-    public boolean AddToCompare(AirbnbListing boxToCompare)
+    public boolean addToCompare(AirbnbListing boxToCompare)
     {
         // Forwards boxToCompare to PanelControl
-        return panelControl.AddToCompare(boxToCompare);
+        return panelControl.addToCompare(boxToCompare);
     }
     
-    public boolean RemoveFromCompare(AirbnbListing boxToCompare)
+    public boolean removeFromCompare(AirbnbListing boxToCompare)
     {
         // Forwards boxToCompare to PanelControl
-        return panelControl.RemoveFromCompare(boxToCompare);
+        return panelControl.removeFromCompare(boxToCompare);
     }
     
     /**

@@ -28,6 +28,7 @@ public class ListingBox
     private int hostListingsCount;
     private int availability365;
     private Panel2 panel2;
+    private Button compareButton = new Button("Compare");
 
     // upon construction, this class takes in an AirbnbListing
     public ListingBox(AirbnbListing listing, Stage stage, Panel2 panel2)
@@ -82,21 +83,13 @@ public class ListingBox
             }
         );
         // button that lets you add the listing to the comparator panel
-        Button compareButton = new Button("Compare");
-        Button removeButton = new Button("Remove");
-        removeButton.setDisable(true);
         compareButton.setOnAction(value ->
             {
-                //sth
-            }
-        );
-        removeButton.setOnAction(value ->
-            {
-                //sth
+                toggleCompare();
             }
         );
 
-        HBox hbox = new HBox(viewButton, compareButton, removeButton);
+        HBox hbox = new HBox(viewButton, compareButton);
 
         vbox.getChildren().addAll(roomTypeL, nameL, hostNameL, priceL, numOfReviewsL, hbox);
 
@@ -149,35 +142,30 @@ public class ListingBox
         newWindow.show();
     }
 
-    private boolean AddToCompare()
+    private boolean addToCompare()
     {
         // This function adds this listing box to be compared in panel4
         // Works by sending box through panel2, panelControl to panel4
-        panel2.AddToCompare(listing);
-        return panel2.AddToCompare(listing);
+        return panel2.addToCompare(listing);
     }
 
-    private boolean RemoveFromCompare()
+    private boolean removeFromCompare()
     {
         // This function adds this listing box to be compared in panel4
         // Works by sending box through panel2, panelControl to panel4
-        panel2.RemoveFromCompare(listing);
-        return panel2.RemoveFromCompare(listing);
+        return panel2.removeFromCompare(listing);
     }
 
-    private boolean ToggleCompare()
+    private void toggleCompare()
     {
         // Listener calls this function
-        if (RemoveFromCompare()) // If true then listing was being compared, and is now removed
+        if (removeFromCompare()) // If true then listing was being compared, and is now removed
         {
-            // GUI changes
-            // Change button to say 'Compare'
+            compareButton.setText("Compare");
         }
-        else if (AddToCompare())// If false then listing wasn't being compared, so add listing to be compared
+        else if (addToCompare())// If false then listing wasn't being compared, so add listing to be compared
         {
-            AddToCompare();
-            // GUI changes
-            // Change button to say 'Remove'
+            compareButton.setText("Remove");
         }
     }
 

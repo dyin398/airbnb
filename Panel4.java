@@ -31,6 +31,7 @@ import java.time.LocalTime;
 import java.time.chrono.AbstractChronology;
 import java.time.chrono.IsoChronology;
 import java.time.Period;
+import javafx.scene.text.Font;
 
 import java.lang.Object;
 import java.net.URL;
@@ -81,6 +82,17 @@ public class Panel4
         reviewsPerMonthLabel = new Label("Reviews/Month");
         hostListingCountLabel = new Label("Host Listings");
         annualAvailabilityLabel = new Label("Annual Availability");
+        
+        //set label font
+        nameLabel.setFont(new Font("Helvetica", 14));
+        roomTypeLabel.setFont(new Font("Helvetica", 14));
+        priceLabel.setFont(new Font("Helvetica", 14));
+        minNightsLabel.setFont(new Font("Helvetica", 14));
+        numberOfReviewsLabel.setFont(new Font("Helvetica", 14));
+        lastReviewLabel.setFont(new Font("Helvetica", 14));
+        reviewsPerMonthLabel.setFont(new Font("Helvetica", 14));
+        hostListingCountLabel.setFont(new Font("Helvetica", 14));
+        annualAvailabilityLabel.setFont(new Font("Helvetica", 14));
 
         //fill grid with row names:
         grid.add(nameLabel, 0, 0);
@@ -118,19 +130,27 @@ public class Panel4
         root.setBottom(borderAnchor);
         panel4 = new Scene(root, 800, 500);
     }
-
+    /*
     private void fillGrid()
     {
         for (int i = 0 ; i < propertyIDs.size() ; i++) {
             Panel4Data data = new Panel4Data(propertyIDs.get(i));
             assignParameters(data);
-
+            grid.add(propertyName, i + 1, 0);
+            grid.add(roomType, i + 1, 1);
+            grid.add(price, i + 1, 2);
+            grid.add(minNights, i + 1, 3);
+            grid.add(numberOfReviews, i + 1, 4);
+            grid.add(lastReview, i + 1, 5);
+            grid.add(reviewsPerMonth, i + 1, 6);
+            grid.add(hostListingCount, i + 1, 7);
+            grid.add(annualAvailability, i + 1, 8);
         }
     }
 
     private void assignParameters(Panel4Data data)
     {
-        propertyName = new Label(data.getPropertyName());
+        propertyName = data.getPropertyName();
         roomType = data.getRoomType();
         price = data.getPrice();
         minNights = data.getMinNights();
@@ -139,29 +159,44 @@ public class Panel4
         reviewsPerMonth = data.getReviewsPerMonth();
         hostListingCount = data.getHostListingCount();
         annualAvailability = data.getAnnualAvailability();
+        
+        propertyName.setFont(new Font("Helvetica", 14));
+        minNights.setFont(new Font("Helvetica", 14));
+        numberOfReviews.setFont(new Font("Helvetica", 14));
+        lastReview.setFont(new Font("Helvetica", 14));
+        hostListingCount.setFont(new Font("Helvetica", 14));
     }
-
-    public boolean AddToCompare(AirbnbListing boxToCompare)
+    */
+    public boolean addToCompare(AirbnbListing boxToCompare)
     {
-        if (propertyIDs.size() <= 4) {
+        if (propertyIDs.size() < 4) {
             // Add listing box to be compared
-            propertyIDs.add(boxToCompare);
-            return true; // Return true if succeeds, return false if comparing too many boxes
+            System.out.println("added!" + propertyIDs.size());
+            return propertyIDs.add(boxToCompare);
         }
         else {
             return false;
         }
     }
     
-    public boolean RemoveFromCompare(AirbnbListing boxToCompare)
+    public boolean removeFromCompare(AirbnbListing boxToCompare)
     {
         // Add listing box to be compared
-        propertyIDs.remove(boxToCompare);
-        return true; // Return true if succeeds, return false if comparing too many boxes
+        return propertyIDs.remove(boxToCompare);
     }
 
     public Scene getScene()
     {
         return panel4;
+    }
+    
+    public Button getBackButton()
+    {
+        return backButton;
+    }
+
+    public Button getForwardButton()
+    {
+        return forwardButton;
     }
 }
