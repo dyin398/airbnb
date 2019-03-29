@@ -113,18 +113,6 @@ public class Panel1
         root.setTopAnchor(date_to_label, 2.0);
         root.setLeftAnchor(date_to_label, 220.0);
         
-        URL url = this.getClass().getResource("birds.css");
-        if (url == null) {
-            System.out.println("Resource not found. Aborting.");
-            System.exit(-1);
-        }
-        String css = url.toExternalForm(); 
-        panel1.getStylesheets().add(css);
-        /*
-        try {
-            root = FXMLLoader.load(getClass().getResource("birds.css"));
-        }
-        catch (Exception e) {System.out.println("failed");}*/
         panel1 = new Scene(root, 800, 500);
     }
     
