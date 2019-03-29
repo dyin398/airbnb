@@ -28,7 +28,9 @@ public class Panel4Data
 
     private final double MAXRPM = 16.87;
     private final int MAXAVAIL = 365;
-
+    
+    private Image house = new Image( "https://image.flaticon.com/icons/png/512/69/69524.png" );
+    private Image room = new Image( "https://www.welcomesite.com.au/wp-content/uploads/2018/01/portable-toilet-icon.jpg"); 
     // upon construction, this class takes in an AirbnbListing
     public Panel4Data(AirbnbListing listing)
     {
@@ -52,20 +54,17 @@ public class Panel4Data
 
     public ImageView getRoomType()
     {
-        Image house = new Image("house.png"); // Icon made by Vectors Market from www.flaticon.com
-        ImageView ivHouse = new ImageView();
-        ivHouse.setImage(house);
-
-        Image room = new Image("room.png"); // Icon made by Freepik from www.flaticon.com
-        ImageView ivRoom = new ImageView();
-        ivRoom.setImage(room);
-
+        ImageView thisIV;
+        thisIV = new ImageView();
+        thisIV.setFitWidth(100);
+        thisIV.setFitHeight(100);
         if(roomType.equals("Entire home/apt")) {
-            return ivHouse;
+            thisIV.setImage(house);
         }
         else {
-            return ivRoom;
+            thisIV.setImage(room);
         }
+        return thisIV;
     }
 
     public Label getMinNights()
@@ -82,16 +81,22 @@ public class Panel4Data
 
     public Label getLastReview()
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String labelText;
+        try 
+        {
+            LocalDate LRlocaldate = LocalDate.parse(lastReview, formatter);
+            LocalDate now = LocalDate.now();
 
-        LocalDate LRlocaldate = LocalDate.parse(lastReview, formatter);
-        LocalDate now = LocalDate.now();
+            Period period = Period.between(LRlocaldate, now);
+            labelText = getPeriodString(period);
+        }
+        catch (Exception e)
+        {
+            labelText = "No reviews";
+        }
 
-        Period period = Period.between(LRlocaldate, now);
-
-        Label label = new Label(getPeriodString(period));
-
-        return label;
+        return new Label(labelText);
     }
 
     public PieChart getReviewsPerMonth()
