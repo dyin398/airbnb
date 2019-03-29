@@ -105,9 +105,6 @@ public class Panel4
         grid.add(hostListingCountLabel, 0, 7);
         grid.add(annualAvailabilityLabel, 0, 8);
 
-        //fill grid with data
-        //fillGrid();
-
         //edit grid padding and gaps
         grid.setPadding(new Insets(20));
         grid.setHgap(15);
@@ -130,7 +127,7 @@ public class Panel4
         root.setBottom(borderAnchor);
         panel4 = new Scene(root, 800, 500);
     }
-    /*
+    
     private void fillGrid()
     {
         for (int i = 0 ; i < propertyIDs.size() ; i++) {
@@ -138,7 +135,7 @@ public class Panel4
             assignParameters(data);
             grid.add(propertyName, i + 1, 0);
             grid.add(roomType, i + 1, 1);
-            grid.add(price, i + 1, 2);
+            //grid.add(price, i + 1, 2);
             grid.add(minNights, i + 1, 3);
             grid.add(numberOfReviews, i + 1, 4);
             grid.add(lastReview, i + 1, 5);
@@ -151,13 +148,13 @@ public class Panel4
     private void assignParameters(Panel4Data data)
     {
         propertyName = data.getPropertyName();
-        roomType = data.getRoomType();
-        price = data.getPrice();
+        //roomType = data.getRoomType();
+        //price = data.getPrice();
         minNights = data.getMinNights();
         numberOfReviews = data.getNumberOfReviews();
-        lastReview = data.getLatReview();
+        lastReview = data.getLastReview();
         reviewsPerMonth = data.getReviewsPerMonth();
-        hostListingCount = data.getHostListingCount();
+        hostListingCount = data.getHostListingsCount();
         annualAvailability = data.getAnnualAvailability();
         
         propertyName.setFont(new Font("Helvetica", 14));
@@ -166,12 +163,12 @@ public class Panel4
         lastReview.setFont(new Font("Helvetica", 14));
         hostListingCount.setFont(new Font("Helvetica", 14));
     }
-    */
+    
     public boolean addToCompare(AirbnbListing boxToCompare)
     {
         if (propertyIDs.size() < 4) {
             // Add listing box to be compared
-            System.out.println("added!" + propertyIDs.size());
+            fillGrid();
             return propertyIDs.add(boxToCompare);
         }
         else {
@@ -182,6 +179,7 @@ public class Panel4
     public boolean removeFromCompare(AirbnbListing boxToCompare)
     {
         // Add listing box to be compared
+        fillGrid();
         return propertyIDs.remove(boxToCompare);
     }
 

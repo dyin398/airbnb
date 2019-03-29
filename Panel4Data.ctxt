@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Panel4Data
+comment0.text=\n\ This\ class\ produces\ the\ displayed\ data\ of\ each\ Airbnb\ listing\ needed\ for\ panel\ 4.\n
+comment1.params=listing
+comment1.target=Panel4Data(AirbnbListing)
+comment10.params=period
+comment10.target=java.lang.String\ getPeriodString(java.time.Period)
+comment2.params=
+comment2.target=javafx.scene.control.Label\ getPropertyName()
+comment3.params=
+comment3.target=javafx.scene.image.ImageView\ getRoomType()
+comment4.params=
+comment4.target=javafx.scene.control.Label\ getMinNights()
+comment5.params=
+comment5.target=javafx.scene.control.Label\ getNumberOfReviews()
+comment6.params=
+comment6.target=javafx.scene.control.Label\ getLastReview()
+comment7.params=
+comment7.target=javafx.scene.chart.PieChart\ getReviewsPerMonth()
+comment8.params=
+comment8.target=javafx.scene.control.Label\ getHostListingsCount()
+comment9.params=
+comment9.target=javafx.scene.chart.PieChart\ getAnnualAvailability()
+numComments=11
