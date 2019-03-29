@@ -113,7 +113,11 @@ public class Panel1
         root.setTopAnchor(date_to_label, 2.0);
         root.setLeftAnchor(date_to_label, 220.0);
         
+        
+        
         panel1 = new Scene(root, 800, 500);
+        
+        panel1.getStylesheets().add("birds.css");
     }
     
     /**
