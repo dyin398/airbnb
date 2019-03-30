@@ -1,43 +1,6 @@
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.*;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.input.*;
-import javafx.scene.Parent;
-import javafx.geometry.Insets;
-import javafx.fxml.*;
-import javafx.scene.control.ComboBoxBase;
-import javafx.scene.control.DatePicker;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.chart.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.*;
-import javafx.geometry.Rectangle2D;
-import javafx.geometry.Insets;
-import javafx.geometry.HPos;
-import javafx.scene.paint.Color;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.TextAlignment;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.chrono.AbstractChronology;
-import java.time.chrono.IsoChronology;
-import java.time.Period;
-import javafx.scene.text.Font;
-
-import java.lang.Object;
-import java.net.URL;
-import java.io.*;
-import java.util.*;
+import javafx.scene.text.*;
 
 /**
  * Write a description of class StatBox here.

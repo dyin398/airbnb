@@ -143,6 +143,12 @@ public class Panel4
             grid.add(hostListingCount, i + 1, 7);
             grid.add(annualAvailability, i + 1, 8);
         }
+        if (propertyIDs.size() == 0){
+            grid.setOpacity(0);
+        }
+        else {
+            grid.setOpacity(1);
+        }
     }
 
     private void assignParameters(Panel4Data data)

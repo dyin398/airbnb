@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=StatBox
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ StatBox\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=panel3\ currentStat
+comment1.target=StatBox(Panel3,\ int)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ StatBox\r\n
+comment2.params=
+comment2.target=void\ addObjects()
+comment3.params=
+comment3.target=void\ addButtonActionListeners()
+comment4.params=
+comment4.target=void\ updateInfoDisplay()
+comment5.params=
+comment5.target=void\ nextStat()
+comment6.params=
+comment6.target=void\ prevStat()
+comment7.params=
+comment7.target=int\ getCurrentStat()
+comment8.params=
+comment8.target=javafx.scene.layout.Pane\ getPane()
+numComments=9
