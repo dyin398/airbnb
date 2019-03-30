@@ -53,6 +53,8 @@ public class Panel3
         root.setTop(title);
 
         panel3 = new Scene(root, 800, 500);
+        
+        panel3.getStylesheets().add("panel3.css");
     }
 
     private void createStatBoxes()

@@ -36,7 +36,7 @@ public class StatBox
         this.currentStat = currentStat;
 
         myPane.setPrefSize(StatBox.PREF_SIZE[0], StatBox.PREF_SIZE[1]);
-        myPane.setStyle("-fx-background-color: mistyrose; -fx-background-radius: 25;" + 
+        myPane.setStyle("-fx-background-color: whitesmoke; -fx-background-radius: 25;" + 
             "-fx-border-color: black; -fx-border-radius:25");
         addObjects();
         addButtonActionListeners();
