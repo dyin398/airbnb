@@ -1,292 +1,166 @@
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.*;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.input.*;
+import javafx.scene.Parent;
+import javafx.geometry.Insets;
+import javafx.fxml.*;
+import javafx.scene.control.ComboBoxBase;
+import javafx.scene.control.DatePicker;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.chart.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.*;
+import javafx.geometry.Rectangle2D;
+import javafx.geometry.Insets;
+import javafx.geometry.HPos;
+import javafx.scene.paint.Color;
+import javafx.scene.layout.GridPane;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.chrono.AbstractChronology;
+import java.time.chrono.IsoChronology;
+import java.time.Period;
+import javafx.scene.text.Font;
+
+import java.lang.Object;
+import java.net.URL;
+import java.io.*;
 import java.util.*;
 
 /**
  * Write a description of class Panel3 here.
  *
- * @author (AirYeet)
+ * @author (your name)
  * @version (a version number or a date)
  */
 public class Panel3
 {
-    private ArrayList<AirbnbListing> allTheProperties;
-    private ArrayList<AirbnbListing> listOfProperties;
-    private ArrayList<String> statsToDisplay;
-    private ArrayList<String> allTheStats;
-    private int totalCountProperties=0;
-    private double reviewsPerProperty=0;
-    private int notPrivateRooms=0;
-    private String boroughWithMostexpensiveProperty;
-    AirbnbListing expensiveProperty = null;
-    private int highestHostListing = 0;
-    private int maxEntireHomePrice = 0;
-    private String maxEntireHomePropertyId = null;
-    AirbnbDataLoader propertyList;
-    private String currentNeighbourhood;
-    private String boroughWithMaxReviewsPerMonth = "";
+    // instance variables - replace the example below with your own
+    private ArrayList<StatBox> statBoxes = new ArrayList<StatBox>();
+    private static final int NUM_BOXES = 4;
+    private BorderPane root = new BorderPane();
+    private Scene panel3; 
+    private TilePane tilePane = new TilePane();
+    private AnchorPane borderAnchor = new AnchorPane();
 
-    // the constructor of panel 3
+    private Label title = new Label("Statistics Panel");
+
+    // Forward back buttons
+    private Button backButton = new Button("  <  ");
+    private Button forwardButton = new Button("  >  ");
+
+    private Panel3Data panel3Data = new Panel3Data();
+
     /**
-     * This is the constructor of Panel 3 and it initliases all the array lists and fields.
-     * It also loads the CSV file to be read using the AirbnbLoader.
+     * Constructor for objects of class Panel3
      */
     public Panel3()
     {
-        listOfProperties = new ArrayList<>();
-        statsToDisplay = new ArrayList<>();
-        allTheStats = new ArrayList<>();
-        propertyList = new AirbnbDataLoader();
-        allTheProperties =propertyList.load();
+        borderAnchor.setMinSize(800, 55);
+        borderAnchor.getChildren().addAll(backButton, forwardButton);
+        borderAnchor.setBottomAnchor(backButton, 15.0);
+        borderAnchor.setLeftAnchor(backButton, 50.0);
+        borderAnchor.setBottomAnchor(forwardButton, 15.0);
+        borderAnchor.setRightAnchor(forwardButton, 50.0);
+
+        createStatBoxes();
+
+        title.setFont(new Font("Helvetica", 24));
+        root.setAlignment(title, javafx.geometry.Pos.CENTER);
+        root.setMargin(title, new Insets(0, 0, 0, 10));
+        title.setStyle("-fx-font-weight: bold");
+
+        root.setBottom(borderAnchor);
+        root.setCenter(tilePane);
+        root.setTop(title);
+
+        panel3 = new Scene(root, 800, 500);
     }
 
-    /**
-     * Creates all the info needed for the stats to be shown.
-     * @param String of values that is shown.
-     */
-    private void initiateList()
+    private void createStatBoxes()
     {
-        // stats to show on screen
-        allTheStats.add("Number of Properties:");
-        allTheStats.add("Avg reviews per property:");
-        allTheStats.add("Properties which are only homes and apartments:");
-        allTheStats.add("Most expensive borough:");
-        allTheStats.add("Borough with the most expensive property:");
-        allTheStats.add("Most expensive entire home:");
-        allTheStats.add("Number of properties with a host listing above 50:");
-        allTheStats.add("Higest available borough:");
+        for (int i = 0; i < Panel3.NUM_BOXES; i++) {
+            // Create Stat box
+            StatBox newStatBox = new StatBox(this, i);
+            statBoxes.add(newStatBox);
 
-        // stats not shown at the start
-        statsToDisplay.add("Borough with the most expensive property:");
-        statsToDisplay.add("Most expensive entire home:");
-        statsToDisplay.add("Number of properties with a host listing above 50:");
-        statsToDisplay.add("Higest available borough:");
-
-        // default stats
-        statsToDisplay.add("Number of Properties:");
-        statsToDisplay.add("Avg reviews per property:");
-        statsToDisplay.add("Properties which are only homes and apartments:");
-        statsToDisplay.add("Most expensive borough:"); 
+            // Add Stat box to tilePane
+            tilePane.getChildren().add(newStatBox.getPane());
+            tilePane.setAlignment(javafx.geometry.Pos.CENTER);
+            tilePane.setStyle("-fx-hgap: 5; -fx-vgap: 5");
+        }
     }
 
-    /**
-     * Gets the number of available properties.
-     * @return the available properties as a int value.
-     */
-    public int countProperties(){
-        long numberOfReviews=0;
-        int minNights;
-        long maxPrice=0;
-        notPrivateRooms = 0;
-        highestHostListing = 0;
-        String privateRoom="Private room";
-        String entireHome = "Entire home/apt";
-        maxEntireHomePrice = 0;
-        for(AirbnbListing property : allTheProperties){
-            //available properties
-            if(property.getAvailability365()>0){
-                totalCountProperties++;
-            }
-            //count the total number of reviews for all properties
-            numberOfReviews+=property.getNumberOfReviews();    
-
-            //count not private rooms
-            if(!property.getRoom_type().equals(privateRoom))
-            {
-                notPrivateRooms++;
-            }
-
-            long currentAmount = property.getMinimumNights()*property.getPrice();
-            if(currentAmount>maxPrice){
-                maxPrice=currentAmount;
-                expensiveProperty=property;
-            }
-
-            //highest host listing
-            //returns the no. of properties with host listing count over 50.
-            if(property.getCalculatedHostListingsCount() >50){
-                highestHostListing++;
-            }
-
-            // Find the most expensive property that is an entire home and save its name
-            if((property.getRoom_type()).equals(entireHome)){ // If entire home
-                int currentEntireHomePrice = property.getPrice();
-                if(currentEntireHomePrice>maxEntireHomePrice) // If most expensive seen so far
-                {
-                    maxEntireHomePrice=currentEntireHomePrice;
-                    maxEntireHomePropertyId=property.getId(); 
-                    // write a method to get this
-                }
-            } 
-            
-        ArrayList<String> allBoroughs = new ArrayList<>();
-        HashMap<String,Integer> pricesOfBorough = new HashMap<>();
-        HashMap<String,Integer> noOfPropertiesPerBorough = new HashMap<>();
-        String mostExpensiveBorough = "";
-        int mostExpensiveBoroughAvgPrice = 0;
-       }
-        // review per property is calculated by dividing the total no of reviews by the property size.
-        reviewsPerProperty=numberOfReviews/(allTheProperties.size());
-        //gets the neighbourhood of the most expensive property.
-        boroughWithMostexpensiveProperty = expensiveProperty.getNeighbourhood();
-
-        return totalCountProperties;
+    public int getNextStat(int currentStat){
+        int nextStat = (currentStat+1)%panel3Data.getNumStats();
+        while (isAlreadySelected(nextStat))
+        {
+            nextStat = (nextStat+1)%panel3Data.getNumStats();
+        }
+        System.out.println(nextStat);
+        return nextStat;
     }
 
-    /**
-     * Gets the name of the most expensive borough.
-     * @return the most expensive borough.
-     */
-    public String getMostExpensiveBorough(){
-        ArrayList<String> allBoroughs = new ArrayList<>();
-        HashMap<String,Integer> pricesOfBorough = new HashMap<>();
-        HashMap<String,Integer> noOfPropertiesPerBorough = new HashMap<>();
-        String mostExpensiveBorough = "";
-        int mostExpensiveBoroughAvgPrice = 0;
-        // adds the neighbourhood to those boroughs without one after looping through all the properties.
-        for (AirbnbListing listing : allTheProperties) {
-            if (!allBoroughs.contains(listing.getNeighbourhood())) {
-                allBoroughs.add(listing.getNeighbourhood());
+    public int getPrevStat(int currentStat){
+        int prevStat = (currentStat-1)%panel3Data.getNumStats();
+        if (prevStat<0) {
+            prevStat = panel3Data.getNumStats()-1; 
+        }
+        while (isAlreadySelected(prevStat))
+        {
+            prevStat = (prevStat-1)%panel3Data.getNumStats();
+            if (prevStat<0) { 
+                prevStat = panel3Data.getNumStats()-1; 
             }
         }
+        System.out.println(prevStat);
+        return prevStat;
+    }
 
-        for (String borough : allBoroughs) {
-            pricesOfBorough.put(borough,0);
-            noOfPropertiesPerBorough.put(borough,0);
-        }
-        // loops through the second hashmap to check for a match.
-        for (AirbnbListing listing : allTheProperties) {
-            for (HashMap.Entry<String, Integer> entry : noOfPropertiesPerBorough.entrySet()) {
-                Integer value = entry.getValue();
-                if (entry.getKey().equals(listing.getNeighbourhood())) {
-                    entry.setValue(value+1);
-                }
-            }
-            // finds the overall price by multiplying the no of nights with the price.
-            for (HashMap.Entry<String, Integer> entry : pricesOfBorough.entrySet()) {
-                Integer value = entry.getValue();
-                if (entry.getKey().equals(listing.getNeighbourhood())) {
-                    entry.setValue(value+(listing.getPrice() * listing.getMinimumNights()));
-                }
+    private boolean isAlreadySelected(int stat){
+        boolean isAlreadySelected = false;
+        for (int i = 0; i < statBoxes.size(); i++){
+            if (statBoxes.get(i).getCurrentStat() == stat){
+                isAlreadySelected = true;
+                break;
             }
         }
-        // loops through the first hashmap.
-        for (HashMap.Entry<String, Integer> entry : pricesOfBorough.entrySet()) {
-            Integer value = entry.getValue();
-            String key = entry.getKey();
-            for (HashMap.Entry<String, Integer> entryTwo : noOfPropertiesPerBorough.entrySet()) {
-                Integer valueTwo = entryTwo.getValue();
-                // checks if the two keys match, if they do then the if statement is executed.
-                if (key.equals(entryTwo.getKey())) {
-                    entry.setValue(value / valueTwo);
-                }
-            }
-            if (entry.getValue() > mostExpensiveBoroughAvgPrice) {
-                mostExpensiveBoroughAvgPrice = entry.getValue();
-                mostExpensiveBorough = entry.getKey();
-            }
-        }
-        return mostExpensiveBorough;
+        return isAlreadySelected;
     }
 
-    /**
-     * Gets the name of the borough that has the maximum average reviews per month.
-     * @return the name of the borough with the maximum average reviews pers month.
-     */
-    public String boroughWithMaxReviewsPerMonth()
+    public Scene getScene()
     {
-        HashMap<String,Double> overallReviews = new HashMap<>();
-        HashMap<String, Integer> noOfPropertiesInBorough = new HashMap<>();
-        int maxAvgPrice = 0;
-        double currentReview;
-        double existingReview;
-        double avgReview;
-        int existingCount;
-        double maxAvgReview = 0;
-        double sumOfReviews;
-        int countOfProperties;
-        for(AirbnbListing property : allTheProperties){
-            currentNeighbourhood = property.getNeighbourhood();
-            currentReview = property.getReviewsPerMonth();
-            
-            // Sum up reviews per month in each borough
-            // For each property, check if record has been made in map
-            // If record has been made, update it to add extra reviews
-            // If record hasn't been made, create field and set its value
-            if (overallReviews.containsKey(currentNeighbourhood))
-            {
-                existingReview = overallReviews.get(currentNeighbourhood);
-                existingReview = existingReview + currentReview;
-                overallReviews.replace(currentNeighbourhood, existingReview);
-            }
-            else{
-                overallReviews.put(currentNeighbourhood, currentReview);
-            }
-            // this checks whether the record is there or not, if it is not then it is added.
-            if (noOfPropertiesInBorough.containsKey(currentNeighbourhood))
-            {
-                noOfPropertiesInBorough.put(currentNeighbourhood, noOfPropertiesInBorough.get(currentNeighbourhood)+1);
-            }
-            else
-            {
-                noOfPropertiesInBorough.put(currentNeighbourhood, 1);
-            }
-        }
-        // loops through the hashmap of overall reviews
-        for (HashMap.Entry<String, Double> entry : overallReviews.entrySet()){
-            currentNeighbourhood = entry.getKey();
-            sumOfReviews = entry.getValue();
-            countOfProperties = noOfPropertiesInBorough.get(currentNeighbourhood);
-            avgReview = sumOfReviews/countOfProperties;
-            if(avgReview > maxAvgReview ){
-                maxAvgReview = avgReview;
-                boroughWithMaxReviewsPerMonth = currentNeighbourhood;
-            }
-        }
-        return boroughWithMaxReviewsPerMonth;
+        return panel3;
     }
 
-    /**
-     * Gets the number of reviews per property.
-     * @return the number of reviews as a double.
-     */
-    public double getreviewsPerProperty()
+    public Button getBackButton()
     {
-        return reviewsPerProperty;
+        return backButton;
     }
 
-    /**
-     * Gets the number of properties that are not private rooms.
-     * @return the number of properties which are not private rooms.
-     */
-    public int getnotPrivateRooms()
+    public Button getForwardButton()
     {
-        return notPrivateRooms;
+        return forwardButton;
     }
 
-    /**
-     * Gets the name of the borough that has the most expensive property.
-     * @return the name of the borough with the most expensive property in it.
-     */
-    public String getboroughWithMostexpensiveProperty()
+    public String getStatDescription(int stat)
     {
-        return boroughWithMostexpensiveProperty;
+        return panel3Data.getStatDescription(stat);
     }
 
-    /**
-     * Gets the number of properties that have a host listing above 50.
-     * @return the number of properties with a host listing above 50.
-     */
-    public int gethighestHostListing()
+    public String getStatValue(int stat)
     {
-        return highestHostListing;
+        return panel3Data.getStatValue(stat);
     }
-
-    /**
-     * Gets the ID of the most expensive entire home.
-     * @return the ID of the most expensive entire home.
-     */
-    public String getMostExpensiveEntireHomePropertyId()
-    {
-        return maxEntireHomePropertyId;
-    }
-
 }
