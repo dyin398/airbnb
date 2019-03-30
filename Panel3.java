@@ -20,6 +20,7 @@ public class Panel3
     private int highestHostListing = 0;
     private int maxEntireHomePrice = 0;
     private String maxEntireHomePropertyId = null;
+    // loads all the properties in the AirbnbListing file
     AirbnbDataLoader propertyList;
     private String currentNeighbourhood;
     private String boroughWithMaxReviewsPerMonth = "";
@@ -35,12 +36,12 @@ public class Panel3
         statsToDisplay = new ArrayList<>();
         allTheStats = new ArrayList<>();
         propertyList = new AirbnbDataLoader();
+        // all the list of properties are stored in the arrayList of type AirbnbListing.
         allTheProperties =propertyList.load();
     }
 
-    /**
-     * Creates all the info needed for the stats to be shown.
-     * @param String of values that is shown.
+     /**
+     * Creates all the fields that should be displayed in the statistics panel.
      */
     private void initiateList()
     {
@@ -81,19 +82,26 @@ public class Panel3
         String entireHome = "Entire home/apt";
         maxEntireHomePrice = 0;
         for(AirbnbListing property : allTheProperties){
-            //available properties
+            //get the number of available properties.
+            // if the property is available then it is incremented.
             if(property.getAvailability365()>0){
                 totalCountProperties++;
             }
-            //count the total number of reviews for all properties
+            //count the total number of reviews for all properties.
             numberOfReviews+=property.getNumberOfReviews();    
 
             //count not private rooms
+            // checks whether the room type is not equal to private room .
+            // if it is not equal then the value is incremented.
             if(!property.getRoom_type().equals(privateRoom))
             {
                 notPrivateRooms++;
             }
 
+            // borough with the most expensive property
+            // gets the minnights and the price and stores the result of the multiplcation of these two in a variable.
+            // the if statement assigns the currentAmount to maxPrice, where maxPrice is initialized to 0.
+            // the property is assigned to expensivePropery.
             long currentAmount = property.getMinimumNights()*property.getPrice();
             if(currentAmount>maxPrice){
                 maxPrice=currentAmount;
@@ -101,27 +109,22 @@ public class Panel3
             }
 
             //highest host listing
-            //returns the no. of properties with host listing count over 50.
+            //if the hostListingCount for a property is over 50, then the highestHostListing is incremented.
             if(property.getCalculatedHostListingsCount() >50){
                 highestHostListing++;
             }
 
-            // Find the most expensive property that is an entire home and save its name
-            if((property.getRoom_type()).equals(entireHome)){ // If entire home
+            // Find the most expensive property that is an entire home and gets the id of that entire home.
+            if((property.getRoom_type()).equals(entireHome)){ //  checks if the room type is an entire room
                 int currentEntireHomePrice = property.getPrice();
                 if(currentEntireHomePrice>maxEntireHomePrice) // If most expensive seen so far
                 {
+                    // assigns current to max as max is initially set to 0.
                     maxEntireHomePrice=currentEntireHomePrice;
+                    // gets the id of the property.
                     maxEntireHomePropertyId=property.getId(); 
-                    // write a method to get this
                 }
-            } 
-            
-        ArrayList<String> allBoroughs = new ArrayList<>();
-        HashMap<String,Integer> pricesOfBorough = new HashMap<>();
-        HashMap<String,Integer> noOfPropertiesPerBorough = new HashMap<>();
-        String mostExpensiveBorough = "";
-        int mostExpensiveBoroughAvgPrice = 0;
+            }
        }
         // review per property is calculated by dividing the total no of reviews by the property size.
         reviewsPerProperty=numberOfReviews/(allTheProperties.size());
@@ -142,17 +145,19 @@ public class Panel3
         String mostExpensiveBorough = "";
         int mostExpensiveBoroughAvgPrice = 0;
         // adds the neighbourhood to those boroughs without one after looping through all the properties.
+        // this add method is executed on the map if it does not exist.
         for (AirbnbListing listing : allTheProperties) {
             if (!allBoroughs.contains(listing.getNeighbourhood())) {
                 allBoroughs.add(listing.getNeighbourhood());
             }
         }
-
+        // puts in the key and value in hashmap 2 and 3.
         for (String borough : allBoroughs) {
             pricesOfBorough.put(borough,0);
             noOfPropertiesPerBorough.put(borough,0);
         }
-        // loops through the second hashmap to check for a match.
+        // loops through the second hashmap to check for if the key matches the current neighbourhood.
+        // if it does then the if statement is executed and the value is increased by 1.
         for (AirbnbListing listing : allTheProperties) {
             for (HashMap.Entry<String, Integer> entry : noOfPropertiesPerBorough.entrySet()) {
                 Integer value = entry.getValue();
@@ -160,7 +165,9 @@ public class Panel3
                     entry.setValue(value+1);
                 }
             }
-            // finds the overall price by multiplying the no of nights with the price.
+            // iterates through the second hashmap and checks if the key is equal to the current neighbourhood.
+            // if it does then the if statement is executed.
+            // the value is added to the result of the price by multiplied the no of nights.
             for (HashMap.Entry<String, Integer> entry : pricesOfBorough.entrySet()) {
                 Integer value = entry.getValue();
                 if (entry.getKey().equals(listing.getNeighbourhood())) {
@@ -168,7 +175,11 @@ public class Panel3
                 }
             }
         }
-        // loops through the first hashmap.
+        // iterates through the second hashmap.
+        // gets the key and the value from hashmap 2 and stores it in a variable.
+        // nested for loop iterates through the third hashmap to get the value.
+        // checks if the key in hashmap 2 is eual to the key in hashmap 3.
+        // if the keys are equal then the if statement is executed.
         for (HashMap.Entry<String, Integer> entry : pricesOfBorough.entrySet()) {
             Integer value = entry.getValue();
             String key = entry.getKey();
@@ -179,6 +190,8 @@ public class Panel3
                     entry.setValue(value / valueTwo);
                 }
             }
+            // the boroughAvgPrice is set to 0, so the value is assigned to the boroughAvgPrice.
+            // and the key is assigned to the mostExpensiveBorough so that you can return the mostExpBorough as the result.
             if (entry.getValue() > mostExpensiveBoroughAvgPrice) {
                 mostExpensiveBoroughAvgPrice = entry.getValue();
                 mostExpensiveBorough = entry.getKey();
@@ -207,10 +220,10 @@ public class Panel3
             currentNeighbourhood = property.getNeighbourhood();
             currentReview = property.getReviewsPerMonth();
             
-            // Sum up reviews per month in each borough
-            // For each property, check if record has been made in map
-            // If record has been made, update it to add extra reviews
-            // If record hasn't been made, create field and set its value
+            // Sum up reviews per month in each borough.
+            // For each property, check if record has been made in map.
+            // If record has been made, update it to add extra reviews.
+            // If record hasn't been made, create field and set its value.
             if (overallReviews.containsKey(currentNeighbourhood))
             {
                 existingReview = overallReviews.get(currentNeighbourhood);
@@ -220,7 +233,8 @@ public class Panel3
             else{
                 overallReviews.put(currentNeighbourhood, currentReview);
             }
-            // this checks whether the record is there or not, if it is not then it is added.
+            // this checks whether the record is there or not.
+            // if it is not then it is added using the put() method.
             if (noOfPropertiesInBorough.containsKey(currentNeighbourhood))
             {
                 noOfPropertiesInBorough.put(currentNeighbourhood, noOfPropertiesInBorough.get(currentNeighbourhood)+1);
@@ -230,7 +244,12 @@ public class Panel3
                 noOfPropertiesInBorough.put(currentNeighbourhood, 1);
             }
         }
-        // loops through the hashmap of overall reviews
+        // loops through the hashmap of overall reviews to get the key and value.
+        // the key and value are stored in two different variables.
+        // gets the currentNeighbourhood by calling the get() on hashmap 2 and storing that in a variable.
+        // the avgReview divides the value by the countOfProperties.
+        // if statement is executed as the avgReview is initially greater than the maxAvgReview as it is set to 0 at the start.
+        // assigns the key(currentNeighbouhood) to the boroughWithMaxReviewsPerMonth and then this is returned as a string.
         for (HashMap.Entry<String, Double> entry : overallReviews.entrySet()){
             currentNeighbourhood = entry.getKey();
             sumOfReviews = entry.getValue();
@@ -246,7 +265,7 @@ public class Panel3
 
     /**
      * Gets the number of reviews per property.
-     * @return the number of reviews as a double.
+     * @return the number of reviews per property that is of type double.
      */
     public double getreviewsPerProperty()
     {
@@ -255,7 +274,7 @@ public class Panel3
 
     /**
      * Gets the number of properties that are not private rooms.
-     * @return the number of properties which are not private rooms.
+     * @return the number of properties which are not private rooms that is of type int.
      */
     public int getnotPrivateRooms()
     {
@@ -264,7 +283,7 @@ public class Panel3
 
     /**
      * Gets the name of the borough that has the most expensive property.
-     * @return the name of the borough with the most expensive property in it.
+     * @return the name of the borough with the most expensive property in it that is of type string.
      */
     public String getboroughWithMostexpensiveProperty()
     {
@@ -273,7 +292,7 @@ public class Panel3
 
     /**
      * Gets the number of properties that have a host listing above 50.
-     * @return the number of properties with a host listing above 50.
+     * @return the number of properties with a host listing above 50 that is of type int.
      */
     public int gethighestHostListing()
     {
@@ -282,7 +301,7 @@ public class Panel3
 
     /**
      * Gets the ID of the most expensive entire home.
-     * @return the ID of the most expensive entire home.
+     * @return the ID of the most expensive entire home which is of type string.
      */
     public String getMostExpensiveEntireHomePropertyId()
     {

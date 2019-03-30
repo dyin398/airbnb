@@ -1,0 +1,27 @@
+.root {
+    -fx-background-image: url(https://orig00.deviantart.net/e133/f/2018/164/2/1/_custom_box_background__i_believe_in_pink_by_king_lulu_deer-dce971x.gif);
+    -fx-background-size: 800px;
+    -fx-background-position: left top;
+    -fx-background-repeat: no-repeat;
+    //-fx-background-color: linear-gradient(from 50% 0% to 50% 100%, white 0%, skyblue 20%, blue 80%, green 100%);
+}
+//https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2017/04/new-build-country-houses-feature-image.jpg
+//https://media.tenor.com/images/f1c3150348c9f74d2e1df6b82e49e2f5/tenor.gif
+//https://data.whicdn.com/images/260158984/original.gif
+//https://orig00.deviantart.net/e133/f/2018/164/2/1/_custom_box_background__i_believe_in_pink_by_king_lulu_deer-dce971x.gif
+
+.button {
+    -fx-background-radius: 50px;
+}
+
+.picker__date-display {
+    -fx-background-radius: 100px;
+}
+
+.text-field {
+    -fx-background-radius: 100px;
+}
+
+.choice-box {
+    -fx-background-radius: 100px;
+}

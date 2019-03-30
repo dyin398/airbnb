@@ -5,9 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.input.*;
-import javafx.scene.image.*;
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
 import javafx.geometry.Insets;
 import javafx.fxml.*;
 import javafx.scene.control.ComboBoxBase;
@@ -68,11 +65,11 @@ public class Panel1
         line2 = new TextField("Select the Price Range you desire for the property.");
         line3 = new TextField("Each property shown can be rented and each borough can have one or many properties.");
         line1.setEditable(false);
-        line1.setPrefWidth(374);
+        line1.setPrefWidth(340);
         line2.setEditable(false);
-        line2.setPrefWidth(347);
+        line2.setPrefWidth(315);
         line3.setEditable(false);
-        line3.setPrefWidth(598);
+        line3.setPrefWidth(535);
         
         price_from_label.setFont(new Font("Helvetica", 14));
         price_to_label.setFont(new Font("Helvetica", 14));
@@ -118,7 +115,7 @@ public class Panel1
         
         panel1 = new Scene(root, 800, 500);
         
-        panel1.getStylesheets().add("birds.css");
+        panel1.getStylesheets().add("background.css");
     }
     
     /**
