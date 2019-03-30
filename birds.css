@@ -1,12 +1,16 @@
 
 .root {
     -fx-background-image: url(http://worldartsme.com/images/tree-clipart-1.jpg);
-    -fx-background-size: 1000;
+    -fx-background-size: 600px;
+    -fx-background-position: left top;
     -fx-background-repeat: no-repeat;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, white 0%, blue 20%, blue 80%, green 100%);
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, white 0%, skyblue 20%, blue 80%, green 100%);
 }
 
-.text-field {
-    -fx-background-color: linear-gradient(from 0% 50% to 100% 50%, gold 0%, DarkBlue 50%, Lime 100%);
-    -fx-text-fill: linear-gradient(from 0% 50% to 100% 50%, DarkBlue 0%, Lime 50%, Gold 100%);
+.button {
+    -fx-background-radius: 50px;
+}
+
+.choice-box {
+    -fx-background-radius: 100px;
 }

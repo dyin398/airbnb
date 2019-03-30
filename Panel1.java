@@ -5,6 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.input.*;
+import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.geometry.Insets;
 import javafx.fxml.*;
 import javafx.scene.control.ComboBoxBase;
@@ -112,8 +115,6 @@ public class Panel1
         root.setLeftAnchor(date_from_label, 10.0);
         root.setTopAnchor(date_to_label, 2.0);
         root.setLeftAnchor(date_to_label, 220.0);
-        
-        
         
         panel1 = new Scene(root, 800, 500);
         
