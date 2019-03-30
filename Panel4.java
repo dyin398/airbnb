@@ -56,7 +56,7 @@ public class Panel4
     private Scene panel4;
     private Label propertyName;
     private ImageView roomType;
-    private BarChart price;
+    private Label price;
     private Label minNights;
     private Label numberOfReviews;
     private Label lastReview;
@@ -95,20 +95,13 @@ public class Panel4
         annualAvailabilityLabel.setFont(new Font("Helvetica", 14));
 
         //fill grid with row names:
-        grid.add(nameLabel, 0, 0);
-        grid.add(roomTypeLabel, 0, 1);
-        grid.add(priceLabel, 0, 2);
-        grid.add(minNightsLabel, 0, 3);
-        grid.add(numberOfReviewsLabel, 0, 4);
-        grid.add(lastReviewLabel, 0, 5);
-        grid.add(reviewsPerMonthLabel, 0, 6);
-        grid.add(hostListingCountLabel, 0, 7);
-        grid.add(annualAvailabilityLabel, 0, 8);
+        setEmptyGrid();
 
         //edit grid padding and gaps
         grid.setPadding(new Insets(20));
-        grid.setHgap(15);
+        //grid.setHgap(15);
         grid.setVgap(15);
+        grid.setGridLinesVisible( true );
 
         //fill gridScroll with panel and program scroll bars
         gridScroll.setContent(grid);
@@ -130,18 +123,30 @@ public class Panel4
     
     private void fillGrid()
     {
+        grid.getChildren().clear();
+        setEmptyGrid();
         for (int i = 0 ; i < propertyIDs.size() ; i++) {
             Panel4Data data = new Panel4Data(propertyIDs.get(i));
             assignParameters(data);
             grid.add(propertyName, i + 1, 0);
             grid.add(roomType, i + 1, 1);
-            //grid.add(price, i + 1, 2);
+            grid.add(price, i + 1, 2);
             grid.add(minNights, i + 1, 3);
             grid.add(numberOfReviews, i + 1, 4);
             grid.add(lastReview, i + 1, 5);
             grid.add(reviewsPerMonth, i + 1, 6);
             grid.add(hostListingCount, i + 1, 7);
             grid.add(annualAvailability, i + 1, 8);
+            
+            GridPane.setHalignment(propertyName, HPos.CENTER);
+            GridPane.setHalignment(roomType, HPos.CENTER);
+            GridPane.setHalignment(price, HPos.CENTER);
+            GridPane.setHalignment(minNights, HPos.CENTER);
+            GridPane.setHalignment(numberOfReviews, HPos.CENTER);
+            GridPane.setHalignment(lastReview, HPos.CENTER);
+            GridPane.setHalignment(reviewsPerMonth, HPos.CENTER);
+            GridPane.setHalignment(hostListingCount, HPos.CENTER);
+            GridPane.setHalignment(annualAvailability, HPos.CENTER);
         }
         if (propertyIDs.size() == 0){
             grid.setOpacity(0);
@@ -154,8 +159,8 @@ public class Panel4
     private void assignParameters(Panel4Data data)
     {
         propertyName = data.getPropertyName();
-        //roomType = data.getRoomType();
-        //price = data.getPrice();
+        roomType = data.getRoomType();
+        price = data.getPrice();
         minNights = data.getMinNights();
         numberOfReviews = data.getNumberOfReviews();
         lastReview = data.getLastReview();
@@ -174,19 +179,34 @@ public class Panel4
     {
         if (propertyIDs.size() < 4) {
             // Add listing box to be compared
+            boolean returnBool = propertyIDs.add(boxToCompare);
             fillGrid();
-            return propertyIDs.add(boxToCompare);
+            return returnBool;
         }
         else {
             return false;
         }
     }
     
+    private void setEmptyGrid()
+    {
+        grid.add(nameLabel, 0, 0);
+        grid.add(roomTypeLabel, 0, 1);
+        grid.add(priceLabel, 0, 2);
+        grid.add(minNightsLabel, 0, 3);
+        grid.add(numberOfReviewsLabel, 0, 4);
+        grid.add(lastReviewLabel, 0, 5);
+        grid.add(reviewsPerMonthLabel, 0, 6);
+        grid.add(hostListingCountLabel, 0, 7);
+        grid.add(annualAvailabilityLabel, 0, 8);
+    }
+    
     public boolean removeFromCompare(AirbnbListing boxToCompare)
     {
         // Add listing box to be compared
+        boolean returnBool = propertyIDs.remove(boxToCompare);
         fillGrid();
-        return propertyIDs.remove(boxToCompare);
+        return returnBool;
     }
 
     public Scene getScene()

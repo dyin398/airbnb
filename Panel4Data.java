@@ -1,4 +1,3 @@
-
 import javafx.scene.layout.*;
 import javafx.scene.*;
 import javafx.scene.image.*;
@@ -29,8 +28,8 @@ public class Panel4Data
     private final double MAXRPM = 16.87;
     private final int MAXAVAIL = 365;
     
-    private Image house = new Image( "https://image.flaticon.com/icons/png/512/69/69524.png" );
-    private Image room = new Image( "https://www.welcomesite.com.au/wp-content/uploads/2018/01/portable-toilet-icon.jpg"); 
+    private Image house = new Image( "https://img.lovepik.com/element/40052/5232.png_1200.png" );
+    private Image room = new Image( "https://image.flaticon.com/icons/png/512/1039/1039850.png"); 
     // upon construction, this class takes in an AirbnbListing
     public Panel4Data(AirbnbListing listing)
     {
@@ -48,16 +47,24 @@ public class Panel4Data
 
     public Label getPropertyName()
     {
-        Label label = new Label("name");
+        Label label = new Label(name);
+        label.setWrapText(true);
+        label.setMaxWidth(120);
         return label;
     }
 
+    public Label getPrice()
+    {
+        Label label = new Label("£" + String.valueOf(price));
+        return label;
+    }
+    
     public ImageView getRoomType()
     {
         ImageView thisIV;
         thisIV = new ImageView();
-        thisIV.setFitWidth(100);
-        thisIV.setFitHeight(100);
+        thisIV.setFitWidth(90);
+        thisIV.setFitHeight(90);
         if(roomType.equals("Entire home/apt")) {
             thisIV.setImage(house);
         }
@@ -95,8 +102,10 @@ public class Panel4Data
         {
             labelText = "No reviews";
         }
-
-        return new Label(labelText);
+        Label label = new Label(labelText);
+        label.setWrapText(true);
+        label.setMaxWidth(130);
+        return label;
     }
 
     public PieChart getReviewsPerMonth()
