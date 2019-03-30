@@ -29,6 +29,7 @@ public class PanelControl extends Application
     private Panel1 panel1;
     private Panel2 panel2;
     private Panel4 panel4;
+    private Panel3 panel3;
 
     /**
      * Constructor for objects of class PanelControl
@@ -38,12 +39,13 @@ public class PanelControl extends Application
         panel1 = new Panel1();
         panel2 = new Panel2(this);
         panel4 = new Panel4();
+        panel3 = new Panel3();
     }
     
     @Override
     public void start(Stage stage) throws Exception
     {
-        currentScene = panel1.getScene();
+        currentScene = panel3.getScene();
         setListener(stage);
         setActionButtons(stage);
             

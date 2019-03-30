@@ -7,6 +7,10 @@
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, white 0%, skyblue 20%, blue 80%, green 100%);
 }
 
+.text-field {
+    -fx-background-radius: 50px;
+}
+
 .button {
     -fx-background-radius: 50px;
 }
